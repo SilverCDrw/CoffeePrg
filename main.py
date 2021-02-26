@@ -5,7 +5,9 @@ from PyQt5.QtWidgets import QApplication, QTableWidgetItem
 from PyQt5.QtWidgets import QWidget
 import sqlite3
 
-conn = sqlite3.connect("coffee.sqlite")  # или :memory: чтобы сохранить в RAM
+from UI.new import secondform, mainform
+
+conn = sqlite3.connect("data/coffee.sqlite")  # или :memory: чтобы сохранить в RAM
 cursor = conn.cursor()
 
 # Создание таблицы
@@ -17,7 +19,7 @@ cursor.execute("CREATE TABLE IF NOT EXISTS `coffee` (`id` INTEGER  PRIMARY KEY A
 class SecondWidget(QWidget):
     def __init__(self):
         super().__init__()
-        uic.loadUi("addEditCoffeeForm.ui", self)
+        secondform.secondform().setupUi(self)
         self.setWindowTitle("Edit")
         self.show()
 
@@ -100,7 +102,7 @@ class Widget(QWidget):
     def __init__(self):
         super().__init__()
         self.move(10, 10)
-        uic.loadUi("main.ui", self)
+        mainform.mainform().setupUi(self)
         self.setWindowTitle("Coffee table")
         self.show()
         self.second = SecondWidget()
