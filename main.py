@@ -1,13 +1,9 @@
 import sys
-from random import randint
 
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QTableWidgetItem, QAbstractScrollArea, QComboBox, \
-    QTableWidget, QLabel
+from PyQt5.QtWidgets import QApplication, QTableWidgetItem
 from PyQt5.QtWidgets import QWidget
 import sqlite3
-
-from PyQt5.uic.properties import QtWidgets
 
 conn = sqlite3.connect("coffee.sqlite")  # или :memory: чтобы сохранить в RAM
 cursor = conn.cursor()
@@ -80,7 +76,7 @@ class Widget(QWidget):
         self.reloadDataBase()
 
     def save(self):
-        id = str(self.second.IDlist.currentText())
+        index = str(self.second.IDlist.currentText())
         name = self.second.Name.text()
         st = self.second.Stepen.text()
         zern = self.second.Zern.currentText()
@@ -88,10 +84,10 @@ class Widget(QWidget):
         cost = self.second.Cost.value()
         v = self.second.VV.value()
         self.delete()
-        print(f"INSERT INTO coffee (id,Name,RawState,DType,Desc,Cost,V) VALUES ({id},'{name}'"
-                     f",'{st}','{zern}','{desc}',{cost},{v})")
-        conn.execute(f"INSERT INTO coffee (id,Name,RawState,DType,Desc,Cost,V) VALUES ({id},'{name}'"
-                     f",'{st}','{zern}','{desc}',{cost},{v})")
+        print(f"INSERT INTO coffee (id,Name,RawState,DType,Desc,Cost,V) VALUES ({index},'{name}'"
+              f",'{st}','{zern}','{desc}',{cost},{v})")
+        conn.execute(f"INSERT INTO coffee (id,Name,RawState,DType,Desc,Cost,V) VALUES ({index},"
+                     f"'{name}','{st}','{zern}','{desc}',{cost},{v})")
         self.reloadDataBase()
         conn.commit()
 
